@@ -1,13 +1,28 @@
 .box {
-  border: 1px solid black;
-  width: 500px;
+  margin: 30px;
+  border: 5px solid black;
+  width: 400px;
+  text-align: center;
+  border-radius: 10px;
 }
 
 .item-img {
-  width: 400px;
+  width: 300px;
 }
 
 .main {
   display: flex;
   justify-content: center;
+}
+
+.main button {
+  margin: 10px;
+  border: none;
+  background-color: white;
+}
+
+.main button:hover {
+  cursor: pointer;
+  background-color: #e8f5ff;
+  border-radius: 10px;
 }
