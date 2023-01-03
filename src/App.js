@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+import { useState } from "react";
 import "./App.css";
 import Box from "./component/Box";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,7 +18,7 @@ const choice = {
   },
   scissors: {
     name: "Scissors",
-    img: "https://www.ikea.com/kr/en/images/products/sy-scissors__0112301_pe263788_s5.jpg",
+    img: "https://www.ikea.com/kr/ko/images/products/sy-scissors__0112301_pe263788_s5.jpg?f=s",
   },
   paper: {
     name: "Paper",
@@ -27,17 +27,21 @@ const choice = {
 };
 
 function App() {
+  const [userSelect, setUserSelect] = useState(null);
+
   const play = (userChoice) => {
     console.log("선택됨!", userChoice);
+    setUserSelect(choice[userChoice]);
   };
   return (
     <div>
       <div className="main">
-        <Box title="You" />
-        <Box title="Computer" />
+        <Box title="You" item={userSelect} />
+        {/*<Box title="Computer" />*/}
       </div>
       <div className="main">
         <button onClick={() => play("scissors")}>
+          {/*리액트에서는 문자열이 아닌 함수를 받아서 이벤트를 처리하기 때문에 onClick 안에서 콜백함수 형태로 함수를 전달*/}
           <FontAwesomeIcon icon={faHandScissors} size="4x" />
         </button>
         <button onClick={() => play("rock")}>
@@ -48,7 +52,6 @@ function App() {
         </button>
       </div>
     </div>
-    // 리액트에서는 문자열이 아닌 함수를 받아서 이벤트를 처리하기 때문에 onClick 안에서 콜백함수 형태로 함수를 전달
   );
 }
 
