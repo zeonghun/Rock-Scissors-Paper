@@ -14,30 +14,41 @@ import { faHandScissors, faHandBackFist, faHand } from "@fortawesome/free-regula
 const choice = {
   rock: {
     name: "Rock",
-    img: "https://media.istockphoto.com/photos/stone-pebble-gray-picture-id1288973456?b=1&k=20&m=1288973456&s=170667a&w=0&h=GBGgp4yrZv4ooDBws8yHF24sJ3rkEpObYsBWpVNKFT8=",
+    img: "https://blog.kakaocdn.net/dn/pSJwo/btqXJV1lACE/nx5XrxkCLWXh9UsnoS8vbK/img.png",
   },
   scissors: {
     name: "Scissors",
-    img: "https://www.ikea.com/kr/ko/images/products/sy-scissors__0112301_pe263788_s5.jpg?f=s",
+    img: "https://blog.kakaocdn.net/dn/HfURw/btqXKvOTNWK/gWTwPXEg9QzSV0ilOuwuak/img.png",
   },
   paper: {
     name: "Paper",
-    img: "https://www.collinsdictionary.com/images/full/paper_111691001.jpg",
+    img: "https://blog.kakaocdn.net/dn/bmjB2s/btqXHhp6kpG/TH14W4U612SxKo9uuR2sB0/img.png",
   },
 };
 
 function App() {
   const [userSelect, setUserSelect] = useState(null);
+  const [computerSelect, setComputerSelect] = useState(null);
 
   const play = (userChoice) => {
     console.log("선택됨!", userChoice);
     setUserSelect(choice[userChoice]);
+    let computerChoice=randomChoice();
+    setComputerSelect(computerChoice);
   };
+
+  const randomChoice=()=>{
+    let itemArray = Object.keys(choice); // 랜덤값으로 객체(가위,바위,보) 중에 하나를 부여하기 위해 객체를 배열화 시킴
+    let randomItem=Math.floor(Math.random()*itemArray.length);
+    let final = itemArray[randomItem];
+    return choice[final];
+  }
+
   return (
     <div>
       <div className="main">
         <Box title="You" item={userSelect} />
-        {/*<Box title="Computer" />*/}
+        <Box title="Computer" item={computerSelect} />
       </div>
       <div className="main">
         <button onClick={() => play("scissors")}>
