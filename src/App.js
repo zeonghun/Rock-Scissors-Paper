@@ -29,26 +29,36 @@ const choice = {
 function App() {
   const [userSelect, setUserSelect] = useState(null);
   const [computerSelect, setComputerSelect] = useState(null);
+  const [result, setResult] = useState("");
 
   const play = (userChoice) => {
     console.log("선택됨!", userChoice);
     setUserSelect(choice[userChoice]);
-    let computerChoice=randomChoice();
+    let computerChoice = randomChoice();
     setComputerSelect(computerChoice);
+    setResult(judgement(choice[userChoice], computerChoice));
   };
 
-  const randomChoice=()=>{
+  const randomChoice = () => {
     let itemArray = Object.keys(choice); // 랜덤값으로 객체(가위,바위,보) 중에 하나를 부여하기 위해 객체를 배열화 시킴
-    let randomItem=Math.floor(Math.random()*itemArray.length);
+    let randomItem = Math.floor(Math.random() * itemArray.length);
     let final = itemArray[randomItem];
     return choice[final];
-  }
+  };
+
+  const judgement = (user, computer) => {
+    if (user.name == computer.name) {
+      return "tie";
+    } else if (user.name == "Rock") return computer.name == "Scissors" ? "win" : "lose";
+    else if (user.name == "Scissors") return computer.name == "Paper" ? "win" : "lose";
+    else if (user.name == "Paper") return computer.name == "Rock" ? "win" : "lose";
+  };
 
   return (
     <div>
       <div className="main">
-        <Box title="You" item={userSelect} />
-        <Box title="Computer" item={computerSelect} />
+        <Box title="You" item={userSelect} result={result} />
+        <Box title="Computer" item={computerSelect} result={result} />
       </div>
       <div className="main">
         <button onClick={() => play("scissors")}>
